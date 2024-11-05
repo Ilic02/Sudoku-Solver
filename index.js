@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(){
     const gridSize = 9;
     const solveButton = document.getElementById("solve-btn");
+    const toggleDarkModeButton = document.getElementById("toggle-dark-mode");
+
     solveButton.addEventListener('click', solveSudoku);
+    toggleDarkModeButton.addEventListener('click', toggleDarkMode);
 
     const sudokuGrid = document.getElementById("sudoku-grid");
 
@@ -61,6 +64,14 @@ async function solveSudoku(){
     else{
         alert("No solution exists for the given Sudoku puzzle!!");
     }
+}
+
+function toggleDarkMode(){
+    const body = document.body;
+    const grid = document.getElementById("sudoku-grid");
+
+    body.classList.toggle("dark-mode");
+    grid.classList.toggle("dark-mode");
 }
 
 function solveSudokuHelper(board){
