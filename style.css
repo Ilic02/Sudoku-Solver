@@ -98,3 +98,10 @@ button:hover{
     background-color: lightgreen;
     transition: all 0.2s ease-in-out;
 }
+
+.button-container{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}

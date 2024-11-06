@@ -2,9 +2,11 @@ document.addEventListener("DOMContentLoaded", function(){
     const gridSize = 9;
     const solveButton = document.getElementById("solve-btn");
     const toggleDarkModeButton = document.getElementById("toggle-dark-mode");
+    const clearButton = document.getElementById("clear-btn")
 
     solveButton.addEventListener('click', solveSudoku);
     toggleDarkModeButton.addEventListener('click', toggleDarkMode);
+    clearButton.addEventListener('click', clearGrid);
 
     const sudokuGrid = document.getElementById("sudoku-grid");
 
@@ -72,6 +74,14 @@ function toggleDarkMode(){
 
     body.classList.toggle("dark-mode");
     grid.classList.toggle("dark-mode");
+}
+
+function clearGrid(){
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach(cell =>{
+        cell.value = "";
+        cell.classList.remove("error", "user-input", "solved");
+    });
 }
 
 function solveSudokuHelper(board){
