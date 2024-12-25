@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         sudokuGrid.appendChild(newRow);
     }
+
+    document.addEventListener("keydown", handleArrowKeys);
 });
 
 async function solveSudoku(){
@@ -221,3 +223,55 @@ function selectCell(cell){
 
     lastSelectedCell = cell;
 }
+
+function handleArrowKeys(event){
+    if(!lastSelectedCell)
+        return;
+
+    const currentId = lastSelectedCell.id;
+    const currentRow = parseInt(currentId.split("-")[1]);
+    const currentCol = parseInt(currentId.split("-")[2]);
+
+    let newRow = currentRow;
+    let newCol = currentCol;
+
+    switch(event.key){
+        case "ArrowUp":
+            if(currentRow > 0)
+                newRow--;
+            break;
+        case "ArrowDown":
+            if(currentRow < 8)
+                newRow++;
+            break;
+        case "ArrowLeft":
+            if(currentCol > 0)
+                newCol--;
+            break;
+        case "ArrowRight":
+            if(currentCol < 8)
+                newCol++;
+            break;
+        default:
+            return;
+    }
+
+    const newCell = document.getElementById(`cell-${newRow}-${newCol}`);
+    selectCell(newCell);
+}
+
+document.addEventListener("keydown", function(event) {
+    if (lastSelectedCell) {
+        const currentCell = lastSelectedCell;
+        if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight") {
+            event.preventDefault(); 
+        }
+        if (event.key >= "1" && event.key <= "9") {
+            currentCell.value = event.key;
+            event.preventDefault(); 
+        }
+        if (event.key === "Backspace" || event.key === "Delete") {
+            currentCell.value = "";
+        }
+    }
+});
