@@ -110,3 +110,8 @@ button:hover{
     background-color: #ffcccc;
     border: 2px solid red;
 }
+
+.cell.selected{
+    border: 2px solid blue;
+    background-color: lightblue;
+}

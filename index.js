@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function(){
             input.type = "number";
             input.className = "cell";
             input.id = `cell-${row}-${col}`;
+
+            input.addEventListener("click", function(){
+                selectCell(input);
+            })
+
             cell.appendChild(input);
             newRow.appendChild(cell);
         }
@@ -83,7 +88,7 @@ function clearGrid(){
     const cells = document.querySelectorAll(".cell");
     cells.forEach(cell =>{
         cell.value = "";
-        cell.classList.remove("error", "user-input", "solved");
+        cell.classList.remove("error", "user-input", "solved", "selected");
     });
 }
 
@@ -205,3 +210,14 @@ function validateInput(){
     return isValid;
 }
 
+let lastSelectedCell = null;
+
+function selectCell(cell){
+    if(lastSelectedCell && lastSelectedCell !== cell){
+        lastSelectedCell.classList.remove("selected");
+    }
+
+    cell.classList.add("selected");
+
+    lastSelectedCell = cell;
+}
