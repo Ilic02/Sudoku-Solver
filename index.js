@@ -33,6 +33,22 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     document.addEventListener("keydown", handleArrowKeys);
+
+    document.addEventListener("keydown", function(event) {
+        if (lastSelectedCell) {
+            const currentCell = lastSelectedCell;
+            if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                event.preventDefault(); 
+            }
+            if (event.key >= "1" && event.key <= "9") {
+                currentCell.value = event.key;
+                event.preventDefault(); 
+            }
+            if (event.key === "Backspace" || event.key === "Delete") {
+                currentCell.value = "";
+            }
+        }
+    });
 });
 
 async function solveSudoku(){
@@ -259,19 +275,3 @@ function handleArrowKeys(event){
     const newCell = document.getElementById(`cell-${newRow}-${newCol}`);
     selectCell(newCell);
 }
-
-document.addEventListener("keydown", function(event) {
-    if (lastSelectedCell) {
-        const currentCell = lastSelectedCell;
-        if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight") {
-            event.preventDefault(); 
-        }
-        if (event.key >= "1" && event.key <= "9") {
-            currentCell.value = event.key;
-            event.preventDefault(); 
-        }
-        if (event.key === "Backspace" || event.key === "Delete") {
-            currentCell.value = "";
-        }
-    }
-});
