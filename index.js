@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", function(){
     const toggleDarkModeButton = document.getElementById("toggle-dark-mode");
     const clearButton = document.getElementById("clear-btn")
 
-    solveButton.addEventListener('click', solveSudoku);
+    solveButton.addEventListener('click', function(){
+        if(validateInput())
+            solveSudoku();
+    });
     toggleDarkModeButton.addEventListener('click', toggleDarkMode);
     clearButton.addEventListener('click', clearGrid);
 
@@ -137,3 +140,68 @@ function isValidMove(board, row, col, num){
 function sleep(ms){
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function validateInput(){
+    const gridSize = 9;
+    let isValid = true;
+
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => cell.classList.remove("error"));
+
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            const cellId = `cell-${row}-${col}`; 
+            const cell = document.getElementById(cellId);
+            const cellValue = cell.value;
+
+            if (cellValue === "") continue; 
+
+            const num = parseInt(cellValue);
+            if (num < 1 || num > 9) {
+                cell.classList.add("error");
+                isValid = false;
+                continue;
+            }
+
+            for (let i = 0; i < gridSize; i++) {
+                if (i !== col) {
+                    const otherCell = document.getElementById(`cell-${row}-${i}`);
+                    if (otherCell.value === cellValue) {
+                        cell.classList.add("error");
+                        otherCell.classList.add("error");
+                        isValid = false;
+                    }
+                }
+            }
+
+            for (let i = 0; i < gridSize; i++) {
+                if (i !== row) {
+                    const otherCell = document.getElementById(`cell-${i}-${col}`);
+                    if (otherCell.value === cellValue) {
+                        cell.classList.add("error");
+                        otherCell.classList.add("error");
+                        isValid = false;
+                    }
+                }
+            }
+
+            const startRow = Math.floor(row / 3) * 3;
+            const startCol = Math.floor(col / 3) * 3;
+            for (let i = startRow; i < startRow + 3; i++) {
+                for (let j = startCol; j < startCol + 3; j++) {
+                    if (i !== row || j !== col) {
+                        const blockCell = document.getElementById(`cell-${i}-${j}`);
+                        if (blockCell.value === cellValue) {
+                            cell.classList.add("error");
+                            blockCell.classList.add("error");
+                            isValid = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return isValid;
+}
+

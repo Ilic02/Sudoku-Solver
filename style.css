@@ -105,3 +105,8 @@ button:hover{
     justify-content: center;
     margin-top: 20px;
 }
+
+.error{
+    background-color: #ffcccc;
+    border: 2px solid red;
+}
