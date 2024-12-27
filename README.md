@@ -63,7 +63,7 @@ Checks that each number:
 No installation is required. Simply clone or download the repository and open `index.html` in a web browser:
 
 ```bash
-git clone https://github.com/yourusername/sudoku-solver.git
+git clone https://github.com/ilic02/sudoku-solver.git
 cd sudoku-solver
 open index.html
 ```
