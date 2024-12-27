@@ -68,7 +68,4 @@ cd sudoku-solver
 open index.html
 ```
 
-## Link
-```
-https://ilic02.github.io/Sudoku-Solver/
-```
+[Prewiew](https://ilic02.github.io/Sudoku-Solver/)
