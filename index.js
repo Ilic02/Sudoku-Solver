@@ -274,4 +274,5 @@ function handleArrowKeys(event){
 
     const newCell = document.getElementById(`cell-${newRow}-${newCol}`);
     selectCell(newCell);
+    newCell.focus();
 }
